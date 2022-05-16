@@ -15,9 +15,7 @@ jobs:
           update: true
           install: git mingw-w64-x86_64-cc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja mingw-w64-x86_64-rust --needed
       - name: CI-Build
-        run: |
-          echo 'Running in MSYS2!'
-          cargo build --features=fltk/use-ninja
+        run: cargo build --release --features=fltk/use-ninja
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
