@@ -2,7 +2,7 @@ name: rustbuild
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-mingw:
     runs-on: windows-latest
     defaults:
       run:
@@ -21,3 +21,28 @@ jobs:
         with:
           name: lib_x64-windows-gnu
           path: target/release/build/**/out/lib
+  build-macos-arm64:
+    strategy:
+      matrix:
+        rust:
+          - 1.60.0
+    runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          target: aarch64-apple-darwin
+          toolchain: ${{ matrix.rust }}
+          override: true
+      - name: CI-Build
+        run: cargo build --release --features=fltk/use-ninja --target=aarch64-apple-darwin
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_arm64-macos
+          path: target/aarch64-apple-dawrin/release/build/**/out/lib
