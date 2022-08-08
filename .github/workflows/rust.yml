@@ -53,6 +53,7 @@ jobs:
         with:
           profile: minimal
           target: aarch64-apple-darwin
+          toolchain: stable
       - name: CI-Build
         run: cargo build --release --features=fltk/use-ninja --target=aarch64-apple-darwin
       - name: Upload a Build Artifact
