@@ -2,7 +2,7 @@ name: rustbuild
 on: [push, pull_request]
 
 jobs:
-  build-mingw:
+  build-msys-mingw:
     runs-on: windows-latest
     defaults:
       run:
@@ -16,6 +16,26 @@ jobs:
           install: git mingw-w64-x86_64-cc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja mingw-w64-x86_64-rust --needed
       - name: CI-Build
         run: cargo build --release --features=fltk/use-ninja
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_x64-windows-msys-gnu
+          path: target/release/build/**/out/lib
+  build-mingw:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable-gnu
+          default: true
+      - name: CI-Build
+        run: cargo build --release
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
