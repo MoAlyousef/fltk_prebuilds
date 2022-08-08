@@ -42,10 +42,6 @@ jobs:
           name: lib_x64-windows-gnu
           path: target/release/build/**/out/lib
   build-macos-arm64:
-    strategy:
-      matrix:
-        rust:
-          - 1.60.0
     runs-on: macos-latest
     defaults:
       run:
@@ -57,7 +53,6 @@ jobs:
         with:
           profile: minimal
           target: aarch64-apple-darwin
-          toolchain: ${{ matrix.rust }}
           override: true
       - name: CI-Build
         run: cargo build --release --features=fltk/use-ninja --target=aarch64-apple-darwin
