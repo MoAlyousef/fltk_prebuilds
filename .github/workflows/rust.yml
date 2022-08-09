@@ -15,7 +15,7 @@ jobs:
           update: true
           install: git mingw-w64-x86_64-cc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja mingw-w64-x86_64-rust --needed
       - name: CI-Build
-        run: cargo build --release --features=fltk/use-ninja
+        run: cargo build --release --features=fltk-sys/use-ninja
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -76,9 +76,69 @@ jobs:
           target: aarch64-apple-darwin
           toolchain: stable
       - name: CI-Build
-        run: cargo build --release --features=fltk/use-ninja --target=aarch64-apple-darwin
+        run: cargo build --release --features=fltk-sys/use-ninja --target=aarch64-apple-darwin
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
           name: lib_arm64-macos
           path: target/aarch64-apple-darwin/release/build/**/out/lib
+  build-macos-x64:
+    runs-on: macos-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+      - name: CI-Build
+        run: cargo build --release --features=fltk-sys/use-ninja
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_x64-macos
+          path: target/release/build/**/out/lib
+  build-msvc:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable-msvc
+          default: true
+      - name: CI-Build
+        run: cargo build --release
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_x64-windows-msvc
+          path: target/release/build/**/out/lib
+  build-linux-x64:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+      - name: Download deps
+        run: sudo apt-get update && sudo apt-get install -y libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libpng-dev
+      - name: CI-Build
+        run: cargo build --release --features=fltk-sys/use-ninja
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_x64-linux
+          path: target/release/build/**/out/lib          
