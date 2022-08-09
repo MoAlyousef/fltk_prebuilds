@@ -52,6 +52,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
+          toolchain: stable-gnu
           target: i686-pc-windows-gnu
           default: true
       - name: CI-Build
@@ -72,6 +73,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
+          toolchain: stable-msvc
           target: i686-pc-windows-msvc
           default: true
       - name: CI-Build
