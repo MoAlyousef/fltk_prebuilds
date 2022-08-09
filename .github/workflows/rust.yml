@@ -56,12 +56,12 @@ jobs:
           target: i686-pc-windows-gnu
           default: true
       - name: CI-Build
-        run: cargo build --release
+        run: cargo build --release --target=i686-pc-windows-gnu
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
           name: lib_x86-windows-gnu
-          path: target/release/build/**/out/lib
+          path: target/i686-pc-windows-gnu/release/build/**/out/lib
   build-msvc32:
     runs-on: windows-latest
     defaults:
@@ -77,12 +77,12 @@ jobs:
           target: i686-pc-windows-msvc
           default: true
       - name: CI-Build
-        run: cargo build --release
+        run: cargo build --release --target=i686-pc-windows-msvc
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
           name: lib_x86-windows-msvc
-          path: target/release/build/**/out/lib
+          path: target/i686-pc-windows-msvc/release/build/**/out/lib
   build-macos-arm64:
     runs-on: macos-latest
     defaults:
