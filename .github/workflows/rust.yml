@@ -41,6 +41,46 @@ jobs:
         with:
           name: lib_x64-windows-gnu
           path: target/release/build/**/out/lib
+  build-mingw32:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          target: i686-pc-windows-gnu
+          default: true
+      - name: CI-Build
+        run: cargo build --release
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_x86-windows-gnu
+          path: target/release/build/**/out/lib
+  build-msvc32:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          target: i686-pc-windows-msvc
+          default: true
+      - name: CI-Build
+        run: cargo build --release
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_x86-windows-msvc
+          path: target/release/build/**/out/lib
   build-macos-arm64:
     runs-on: macos-latest
     defaults:
