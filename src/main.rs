@@ -1,5 +1,5 @@
-use fltk::app;
+use fltk_sys::fl;
 
 fn main() {
-    app::check();
+    unsafe { fl::Fl_check() };
 }
