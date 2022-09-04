@@ -141,4 +141,35 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: lib_x64-linux
-          path: target/release/build/**/out/lib          
+          path: target/release/build/**/out/lib
+  build-linux-aarch64:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - uses: uraimo/run-on-arch-action@v2
+        name: Run commands
+        id: runcmd
+        with:
+          arch: aarch64
+          distro: ubuntu_latest
+          githubToken: ${{ github.token }}
+          setup: |
+            mkdir -p "${PWD}/artifacts"
+          dockerRunArgs: |
+            --volume "${PWD}/artifacts:/artifacts"
+          run: |
+            apt-get update 
+            apt-get install --assume-yes --no-install-recommends file ninja-build g++ cmake git rustc cargo libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev ca-certificates
+            update-ca-certificates --fresh
+            export SSL_CERT_DIR=/etc/ssl/certs
+            cargo build --release --features=fltk-sys/use-ninja
+            file ./target/release/dock
+            cp -r ./target/release/build/**/out/lib "/artifacts/"
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_arm64-linux
+          path: artifacts
