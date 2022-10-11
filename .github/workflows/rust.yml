@@ -2,7 +2,7 @@ name: rustbuild
 on: [push, pull_request]
 
 jobs:
-  build-msys-mingw:
+  build-msys-mingw64:
     runs-on: windows-latest
     defaults:
       run:
@@ -21,7 +21,26 @@ jobs:
         with:
           name: lib_x64-windows-msys-gnu
           path: target/release/build/**/out/lib
-  build-mingw:
+  build-msys-mingw32:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW32
+          update: true
+          install: git mingw-w64-i686-cc mingw-w64-i686-cmake mingw-w64-i686-ninja mingw-w64-i686-rust --needed
+      - name: CI-Build
+        run: cargo build --release --features=fltk-sys/use-ninja
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_x86-windows-msys-gnu
+          path: target/release/build/**/out/lib
+  build-mingw64:
     runs-on: windows-latest
     defaults:
       run:
