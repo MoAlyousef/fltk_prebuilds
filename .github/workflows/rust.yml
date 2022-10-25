@@ -161,6 +161,27 @@ jobs:
         with:
           name: lib_x64-linux
           path: target/release/build/**/out/lib
+  build-msvc-arm64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable-msvc
+          target: aarch64-pc-windows-msvc
+          default: true
+      - name: CI-Build
+        run: cargo build --release --target=aarch64-pc-windows-msvc
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_arm64-windows-msvc
+          path: target/aarch64-pc-windows-msvc/release/build/**/out/lib
   build-linux-arm64:
     runs-on: ubuntu-latest
     env:
