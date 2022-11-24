@@ -183,7 +183,7 @@ jobs:
           name: lib_arm64-windows-msvc
           path: target/aarch64-pc-windows-msvc/release/build/**/out/lib
   build-linux-arm64:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     env:
       CC: aarch64-linux-gnu-gcc
       CXX: aarch64-linux-gnu-g++
