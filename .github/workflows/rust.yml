@@ -183,19 +183,13 @@ jobs:
           name: lib_arm64-windows-msvc
           path: target/aarch64-pc-windows-msvc/release/build/**/out/lib
   build-linux-arm64:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       CC: aarch64-linux-gnu-gcc
       CXX: aarch64-linux-gnu-g++
       CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
       PKG_CONFIG_PATH: "/usr/lib/aarch64-linux-gnu/pkgconfig/:${PKG_CONFIG_PATH}"
     steps:
-    - name: Fix GitHub's mess
-      run: |
-          sudo rm -f /etc/apt/sources.list.d/microsoft-prod.list
-          sudo apt-get update -qq
-          sudo apt-get install -yqq --allow-downgrades libgd3/focal libpcre2-8-0/focal libpcre2-16-0/focal libpcre2-32-0/focal libpcre2-posix2/focal
-          sudo apt-get purge -yqq libclang* libgbm* libllvm* libmono* moby* mono* php* libgdiplus libpcre2-posix3 libzip4
     - name: Download deps
       run: |
           sudo dpkg --add-architecture arm64
