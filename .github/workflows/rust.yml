@@ -21,66 +21,66 @@ jobs:
         with:
           name: lib_x64-windows-msys-gnu
           path: target/release/build/**/out/lib
-  build-msys-mingw32:
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
-    steps:
-      - uses: actions/checkout@v2
-      - uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW32
-          update: true
-          install: git mingw-w64-i686-cc mingw-w64-i686-cmake mingw-w64-i686-ninja mingw-w64-i686-rust --needed
-      - name: CI-Build
-        run: cargo build --release --features=fltk-sys/use-ninja
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: lib_x86-windows-msys-gnu
-          path: target/release/build/**/out/lib
-  build-mingw64:
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable-gnu
-          default: true
-      - name: CI-Build
-        run: cargo build --release
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: lib_x64-windows-gnu
-          path: target/release/build/**/out/lib
-  build-msvc32:
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable-msvc
-          target: i686-pc-windows-msvc
-          default: true
-      - name: CI-Build
-        run: cargo build --release --target=i686-pc-windows-msvc
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: lib_x86-windows-msvc
-          path: target/i686-pc-windows-msvc/release/build/**/out/lib
+  # build-msys-mingw32:
+  #   runs-on: windows-latest
+  #   defaults:
+  #     run:
+  #       shell: msys2 {0}
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: msys2/setup-msys2@v2
+  #       with:
+  #         msystem: MINGW32
+  #         update: true
+  #         install: git mingw-w64-i686-cc mingw-w64-i686-cmake mingw-w64-i686-ninja mingw-w64-i686-rust --needed
+  #     - name: CI-Build
+  #       run: cargo build --release --features=fltk-sys/use-ninja
+  #     - name: Upload a Build Artifact
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: lib_x86-windows-msys-gnu
+  #         path: target/release/build/**/out/lib
+  # build-mingw64:
+  #   runs-on: windows-latest
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Install toolchain
+  #       uses: actions-rs/toolchain@v1
+  #       with:
+  #         profile: minimal
+  #         toolchain: stable-gnu
+  #         default: true
+  #     - name: CI-Build
+  #       run: cargo build --release
+  #     - name: Upload a Build Artifact
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: lib_x64-windows-gnu
+  #         path: target/release/build/**/out/lib
+  # build-msvc32:
+  #   runs-on: windows-latest
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Install toolchain
+  #       uses: actions-rs/toolchain@v1
+  #       with:
+  #         profile: minimal
+  #         toolchain: stable-msvc
+  #         target: i686-pc-windows-msvc
+  #         default: true
+  #     - name: CI-Build
+  #       run: cargo build --release --target=i686-pc-windows-msvc
+  #     - name: Upload a Build Artifact
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: lib_x86-windows-msvc
+  #         path: target/i686-pc-windows-msvc/release/build/**/out/lib
   build-macos-arm64:
     runs-on: macos-latest
     defaults:
@@ -161,27 +161,27 @@ jobs:
         with:
           name: lib_x64-linux
           path: target/release/build/**/out/lib
-  build-msvc-arm64:
-    runs-on: windows-latest
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable-msvc
-          target: aarch64-pc-windows-msvc
-          default: true
-      - name: CI-Build
-        run: cargo build --release --target=aarch64-pc-windows-msvc
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: lib_arm64-windows-msvc
-          path: target/aarch64-pc-windows-msvc/release/build/**/out/lib
+  # build-msvc-arm64:
+  #   runs-on: windows-latest
+  #   defaults:
+  #     run:
+  #       shell: bash
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Install toolchain
+  #       uses: actions-rs/toolchain@v1
+  #       with:
+  #         profile: minimal
+  #         toolchain: stable-msvc
+  #         target: aarch64-pc-windows-msvc
+  #         default: true
+  #     - name: CI-Build
+  #       run: cargo build --release --target=aarch64-pc-windows-msvc
+  #     - name: Upload a Build Artifact
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: lib_arm64-windows-msvc
+  #         path: target/aarch64-pc-windows-msvc/release/build/**/out/lib
   build-linux-arm64:
     runs-on: ubuntu-latest
     env:
