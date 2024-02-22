@@ -215,7 +215,11 @@ jobs:
           profile: minimal
     - name: Build
       shell: bash
-      run: cargo build --target=aarch64-unknown-linux-gnu --release
+      run: |
+        cargo update -p cmake --precise 0.1.48
+        cargo update -p crossbeam-channel --precise 0.5.8
+        cargo update -p crossbeam-utils --precise 0.8.16
+        cargo build --target=aarch64-unknown-linux-gnu --release
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       with:
