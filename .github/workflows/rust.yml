@@ -79,7 +79,7 @@ jobs:
       - name: CI-Build
         run: cargo build --release --target=i686-pc-windows-msvc
       - name: Copy Build Artifact
-        run: cp -r target/release/build/**/out/lib out
+        run: cp -r target/i686-pc-windows-msvc/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -101,7 +101,7 @@ jobs:
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja --target=aarch64-apple-darwin
       - name: Copy Build Artifact
-        run: cp -r target/release/build/**/out/lib out
+        run: cp -r target/aarch64-apple-darwin/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -190,7 +190,7 @@ jobs:
       - name: CI-Build
         run: cargo build --release --target=aarch64-pc-windows-msvc
       - name: Copy Build Artifact
-        run: cp -r target/release/build/**/out/lib out
+        run: cp -r target/aarch64-apple-darwin/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -233,7 +233,7 @@ jobs:
         cargo update -p cmake --precise 0.1.48
         cargo build --target=aarch64-unknown-linux-gnu --release
     - name: Copy Build Artifact
-      run: cp -r target/release/build/**/out/lib out
+      run: cp -r target/aarch64-unknown-linux-gnu/release/build/**/out/lib out
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2
       with:
