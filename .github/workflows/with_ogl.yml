@@ -37,11 +37,13 @@ jobs:
   #         install: git mingw-w64-i686-cc mingw-w64-i686-cmake mingw-w64-i686-ninja mingw-w64-i686-rust --needed
   #     - name: CI-Build
   #       run: cargo build --release --features=fltk-sys/use-ninja,fltk-sys/enable-glwindow
-  #     - name: Upload a Build Artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: lib_x86-windows-msys-gnu
-  #         path: target/release/build/**/out/lib
+      # - name: Copy Build Artifact
+      #   run: cp -r target/release/build/**/out/lib out
+      # - name: Upload a Build Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: lib_i686-pc-windows-gnu
+      #     path: out
   # build-mingw64:
   #   runs-on: windows-latest
   #   defaults:
@@ -50,18 +52,18 @@ jobs:
   #   steps:
   #     - uses: actions/checkout@v4
   #     - name: Install toolchain
-  #       uses: actions-rs/toolchain@v1
+  #       uses: dtolnay/rust-toolchain@stable
   #       with:
-  #         profile: minimal
-  #         toolchain: stable-gnu
-  #         default: true
+  #         targets: "x86_64-pc-windows-gnu"
   #     - name: CI-Build
-  #       run: cargo build --release --features=fltk-sys/enable-glwindow
-  #     - name: Upload a Build Artifact
-  #       uses: actions/upload-artifact@v4
-  #       with:
-  #         name: lib_x64-windows-gnu
-  #         path: target/release/build/**/out/lib
+  #       run: cargo build --target=x86_64-pc-windows-gnu --release --features=fltk-sys/enable-glwindow
+      # - name: Copy Build Artifact
+      #   run: cp -r target/x86_64-pc-windows-gnu/release/build/**/out/lib out
+      # - name: Upload a Build Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: lib_x86_64-pc-windows-gnu
+      #     path: out
   build-msvc32:
     runs-on: windows-latest
     defaults:
@@ -70,12 +72,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          profile: minimal
-          toolchain: stable-msvc
-          target: i686-pc-windows-msvc
-          default: true
+          targets: "i686-pc-windows-msvc"
       - name: CI-Build
         run: cargo build --release --target=i686-pc-windows-msvc --features=fltk-sys/enable-glwindow
       - name: Copy Build Artifact
@@ -93,11 +92,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          profile: minimal
-          target: aarch64-apple-darwin
-          toolchain: stable
+          targets: "aarch64-apple-darwin"
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja,fltk-sys/enable-glwindow --target=aarch64-apple-darwin
       - name: Copy Build Artifact
@@ -115,10 +112,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
+        uses: dtolnay/rust-toolchain@stable
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja,fltk-sys/enable-glwindow
       - name: Copy Build Artifact
@@ -136,11 +130,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable-msvc
-          default: true
+        uses: dtolnay/rust-toolchain@stable
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/enable-glwindow
       - name: Copy Build Artifact
@@ -158,10 +148,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
+        uses: dtolnay/rust-toolchain@stable
       - name: Download deps
         run: sudo apt-get update && sudo apt-get install -y libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libpng-dev libgl1-mesa-dev libglu1-mesa-dev
       - name: CI-Build
@@ -181,12 +168,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@stable
         with:
-          profile: minimal
-          toolchain: stable-msvc
-          target: aarch64-pc-windows-msvc
-          default: true
+          targets: "aarch64-pc-windows-msvc"
       - name: CI-Build
         run: cargo build --release --target=aarch64-pc-windows-msvc --features=fltk-sys/enable-glwindow
       - name: Copy Build Artifact
@@ -221,12 +205,9 @@ jobs:
       shell: bash
     - uses: actions/checkout@v4
     - name: Install Rust
-      uses: actions-rs/toolchain@v1
+      uses: dtolnay/rust-toolchain@stable
       with:
-          toolchain: stable
-          target: aarch64-unknown-linux-gnu
-          override: true
-          profile: minimal
+          target: "aarch64-unknown-linux-gnu"
     - name: Build
       shell: bash
       run: |
