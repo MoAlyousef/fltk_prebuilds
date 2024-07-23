@@ -8,7 +8,7 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: msys2/setup-msys2@v2
         with:
           msystem: MINGW64
@@ -19,7 +19,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/checkout@v4
         with:
           name: lib_x86_64-pc-windows-gnu
           path: out
@@ -29,7 +29,7 @@ jobs:
   #     run:
   #       shell: msys2 {0}
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v4
   #     - uses: msys2/setup-msys2@v2
   #       with:
   #         msystem: MINGW32
@@ -38,7 +38,7 @@ jobs:
   #     - name: CI-Build
   #       run: cargo build --release --features=fltk-sys/use-ninja,fltk-sys/enable-glwindow
   #     - name: Upload a Build Artifact
-  #       uses: actions/upload-artifact@v2
+  #       uses: actions/checkout@v4
   #       with:
   #         name: lib_x86-windows-msys-gnu
   #         path: target/release/build/**/out/lib
@@ -48,7 +48,7 @@ jobs:
   #     run:
   #       shell: bash
   #   steps:
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v4
   #     - name: Install toolchain
   #       uses: actions-rs/toolchain@v1
   #       with:
@@ -58,7 +58,7 @@ jobs:
   #     - name: CI-Build
   #       run: cargo build --release --features=fltk-sys/enable-glwindow
   #     - name: Upload a Build Artifact
-  #       uses: actions/upload-artifact@v2
+  #       uses: actions/checkout@v4
   #       with:
   #         name: lib_x64-windows-gnu
   #         path: target/release/build/**/out/lib
@@ -68,7 +68,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -81,7 +81,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/i686-pc-windows-msvc/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/checkout@v4
         with:
           name: lib_i686-pc-windows-msvc
           path: out
@@ -91,7 +91,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -103,7 +103,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/aarch64-apple-darwin/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/checkout@v4
         with:
           name: lib_aarch64-apple-darwin
           path: out
@@ -113,7 +113,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -124,7 +124,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/checkout@v4
         with:
           name: lib_x86_64-apple-darwin
           path: out
@@ -134,7 +134,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -146,7 +146,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/checkout@v4
         with:
           name: lib_x86_64-pc-windows-msvc
           path: out
@@ -156,7 +156,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -169,7 +169,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/checkout@v4
         with:
           name: lib_x86_64-unknown-linux-gnu
           path: out
@@ -179,7 +179,7 @@ jobs:
       run:
         shell: bash
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -192,7 +192,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/aarch64-pc-windows-msvc/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/checkout@v4
         with:
           name: lib_aarch64-pc-windows-msvc
           path: out
@@ -219,7 +219,7 @@ jobs:
           sudo apt-get install -y libpango1.0-dev:arm64 libx11-dev:arm64 libxext-dev:arm64 libxft-dev:arm64 libxinerama-dev:arm64 libxcursor-dev:arm64 libxrender-dev:arm64 libxfixes-dev:arm64 libpng-dev:arm64 libasound2-dev:arm64 libgl1-mesa-dev:arm64 libglu1-mesa-dev:arm64
           sudo apt-get install g++-aarch64-linux-gnu
       shell: bash
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Install Rust
       uses: actions-rs/toolchain@v1
       with:
@@ -235,7 +235,7 @@ jobs:
     - name: Copy Build Artifact
       run: cp -r target/aarch64-unknown-linux-gnu/release/build/**/out/lib out
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/checkout@v4
       with:
         name: lib_aarch64-unknown-linux-gnu
         path: out
