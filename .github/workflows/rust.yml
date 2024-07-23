@@ -16,11 +16,13 @@ jobs:
           install: git mingw-w64-x86_64-cc mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja mingw-w64-x86_64-rust --needed
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lib_x64-windows-msys-gnu
-          path: target/release/build/**/out/lib
+          name: lib_x86_64-pc-windows-gnu
+          path: out
   # build-msys-mingw32:
   #   runs-on: windows-latest
   #   defaults:
@@ -76,11 +78,13 @@ jobs:
           default: true
       - name: CI-Build
         run: cargo build --release --target=i686-pc-windows-msvc
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lib_x86-windows-msvc
-          path: target/i686-pc-windows-msvc/release/build/**/out/lib
+          name: lib_i686-pc-windows-msvc
+          path: out
   build-macos-arm64:
     runs-on: macos-latest
     defaults:
@@ -96,11 +100,13 @@ jobs:
           toolchain: stable
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja --target=aarch64-apple-darwin
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lib_arm64-macos
-          path: target/aarch64-apple-darwin/release/build/**/out/lib
+          name: lib_aarch64-apple-darwin
+          path: out
   build-macos-x64:
     runs-on: macos-latest
     defaults:
@@ -115,11 +121,13 @@ jobs:
           toolchain: stable
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lib_x64-macos
-          path: target/release/build/**/out/lib
+          name: lib_x86_64-apple-darwin
+          path: out
   build-msvc:
     runs-on: windows-latest
     defaults:
@@ -135,11 +143,13 @@ jobs:
           default: true
       - name: CI-Build
         run: cargo build --release
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lib_x64-windows-msvc
-          path: target/release/build/**/out/lib
+          name: lib_x86_64-pc-windows-msvc
+          path: out
   build-linux-x64:
     runs-on: ubuntu-latest
     defaults:
@@ -156,11 +166,13 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y libpango1.0-dev libx11-dev libxext-dev libxft-dev libxinerama-dev libxcursor-dev libxrender-dev libxfixes-dev libpng-dev
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lib_x64-linux
-          path: target/release/build/**/out/lib
+          name: lib_x86_64-unknown-linux-gnu
+          path: out
   build-msvc-arm64:
     runs-on: windows-latest
     defaults:
@@ -177,11 +189,13 @@ jobs:
           default: true
       - name: CI-Build
         run: cargo build --release --target=aarch64-pc-windows-msvc
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: lib_arm64-windows-msvc
-          path: target/aarch64-pc-windows-msvc/release/build/**/out/lib
+          name: lib_aarch64-pc-windows-msvc
+          path: out
   build-linux-arm64:
     runs-on: ubuntu-latest
     env:
@@ -218,9 +232,11 @@ jobs:
       run: |
         cargo update -p cmake --precise 0.1.48
         cargo build --target=aarch64-unknown-linux-gnu --release
-    - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: lib_arm64-linux
-        path: target/aarch64-unknown-linux-gnu/release/build/**/out/lib
+      - name: Copy Build Artifact
+        run: cp -r target/release/build/**/out/lib out
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: lib_aarch64-unknown-linux-gnu
+          path: out
         
