@@ -19,7 +19,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
         with:
           name: lib_x86_64-pc-windows-gnu
           path: out
@@ -38,7 +38,7 @@ jobs:
   #     - name: CI-Build
   #       run: cargo build --release --features=fltk-sys/use-ninja,fltk-sys/enable-glwindow
   #     - name: Upload a Build Artifact
-  #       uses: actions/checkout@v4
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         name: lib_x86-windows-msys-gnu
   #         path: target/release/build/**/out/lib
@@ -58,7 +58,7 @@ jobs:
   #     - name: CI-Build
   #       run: cargo build --release --features=fltk-sys/enable-glwindow
   #     - name: Upload a Build Artifact
-  #       uses: actions/checkout@v4
+  #       uses: actions/upload-artifact@v4
   #       with:
   #         name: lib_x64-windows-gnu
   #         path: target/release/build/**/out/lib
@@ -81,7 +81,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/i686-pc-windows-msvc/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
         with:
           name: lib_i686-pc-windows-msvc
           path: out
@@ -103,7 +103,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/aarch64-apple-darwin/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
         with:
           name: lib_aarch64-apple-darwin
           path: out
@@ -124,7 +124,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
         with:
           name: lib_x86_64-apple-darwin
           path: out
@@ -146,7 +146,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
         with:
           name: lib_x86_64-pc-windows-msvc
           path: out
@@ -169,7 +169,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
         with:
           name: lib_x86_64-unknown-linux-gnu
           path: out
@@ -192,7 +192,7 @@ jobs:
       - name: Copy Build Artifact
         run: cp -r target/aarch64-pc-windows-msvc/release/build/**/out/lib out
       - name: Upload a Build Artifact
-        uses: actions/checkout@v4
+        uses: actions/upload-artifact@v4
         with:
           name: lib_aarch64-pc-windows-msvc
           path: out
@@ -235,7 +235,7 @@ jobs:
     - name: Copy Build Artifact
       run: cp -r target/aarch64-unknown-linux-gnu/release/build/**/out/lib out
     - name: Upload a Build Artifact
-      uses: actions/checkout@v4
+      uses: actions/upload-artifact@v4
       with:
         name: lib_aarch64-unknown-linux-gnu
         path: out
