@@ -190,7 +190,7 @@ jobs:
       - name: CI-Build
         run: cargo build --release --target=aarch64-pc-windows-msvc
       - name: Copy Build Artifact
-        run: cp -r target/aarch64-apple-darwin/release/build/**/out/lib out
+        run: cp -r target/aarch64-pc-windows-msvc/release/build/**/out/lib out
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
