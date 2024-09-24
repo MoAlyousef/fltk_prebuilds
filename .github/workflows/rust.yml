@@ -234,6 +234,8 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: "wasm32-unknown-emscripten"
+      - name: Download deps
+        run: sudo apt-get update && sudo apt-get install ninja-build
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja --target=wasm32-unknown-emscripten
       - name: Copy Build Artifact
