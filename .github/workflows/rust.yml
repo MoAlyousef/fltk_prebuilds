@@ -239,7 +239,10 @@ jobs:
       - name: CI-Build
         run: cargo build --release --features=fltk-sys/use-ninja --target=wasm32-unknown-emscripten
       - name: Copy Build Artifact
-        run: mkdir out && cp -r target/wasm32-unknown-emscripten/release/build/**/out/lib out/lib
+        run: |
+          mkdir out
+          cp $EMSDK/upstream/emscripten/cache/sysroot/lib/libfltk* target/wasm32-unknown-emscripten/release/build/**/out/lib
+          cp -r target/wasm32-unknown-emscripten/release/build/**/out/lib out/lib
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
