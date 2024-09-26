@@ -241,7 +241,6 @@ jobs:
       - name: Copy Build Artifact
         run: |
           mkdir out
-          cp $EMSDK/upstream/emscripten/cache/sysroot/lib/libfltk* target/wasm32-unknown-emscripten/release/build/**/out/lib
           cp -r target/wasm32-unknown-emscripten/release/build/**/out/lib out/lib
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
