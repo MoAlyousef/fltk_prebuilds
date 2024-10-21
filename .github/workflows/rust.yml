@@ -212,9 +212,7 @@ jobs:
         targets: "aarch64-unknown-linux-gnu"
     - name: Build
       shell: bash
-      run: |
-        cargo update -p cmake --precise 0.1.48
-        cargo build --target=aarch64-unknown-linux-gnu --release
+      run: cargo build --target=aarch64-unknown-linux-gnu --release
     - name: Copy Build Artifact
       run: mkdir out && cp -r target/aarch64-unknown-linux-gnu/release/build/**/out/lib out/lib
     - name: Upload a Build Artifact

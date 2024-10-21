@@ -1,2 +1,2 @@
 [target.wasm32-unknown-emscripten]
-rustflags = ["-C", "link-arg=-sWASM=1", "-C", "link-arg=-sASYNCIFY", "-C", "link-arg=-sALLOW_MEMORY_GROWTH", "-C", "link-arg=-sOFFSCREENCANVAS_SUPPORT=1", "-C", "link-arg=--bind",]
+rustflags = ["-Clink-args=-sASYNCIFY=1 -sALLOW_MEMORY_GROWTH -sOFFSCREENCANVAS_SUPPORT=1"]
