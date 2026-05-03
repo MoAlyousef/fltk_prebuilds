@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 fltk-sys = { git = "https://github.com/fltk-rs/fltk-rs" }
+
